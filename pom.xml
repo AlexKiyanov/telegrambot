@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ru.kiianov</groupId>
 	<artifactId>telegrambot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>telegrambot</name>
 	<description>A simple REST telegram bot</description>
 	<properties>
