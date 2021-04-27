@@ -10,7 +10,7 @@ public class StartCommand implements Command {
 
    private final SendBotMessageService sendBotMessageService;
 
-   public static String startMessage = "Привет! Я тестовый бот.\n"
+   public static String startCommandMessage = "Привет! Я тестовый бот.\n"
            + "Я хочу научиться присылать тебе статьи тех авторов, которые тебе интересны."
            + " Для примера будем работать с сайтом javarush.ru";
 
@@ -20,6 +20,6 @@ public class StartCommand implements Command {
 
    @Override
    public void execute(Update update) {
-      sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), startMessage);
+      sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), startCommandMessage);
    }
 }

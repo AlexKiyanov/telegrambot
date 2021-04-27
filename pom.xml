@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -10,12 +10,14 @@
 	</parent>
 	<groupId>ru.kiianov</groupId>
 	<artifactId>telegrambot</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<name>telegrambot</name>
 	<description>A simple REST telegram bot</description>
 	<properties>
 		<java.version>11</java.version>
 		<telegrambots-spring-boot-starter.version>5.1.1</telegrambots-spring-boot-starter.version>
+		<junit.version>4.13.2</junit.version>
+		<mockito.version>3.9.0</mockito.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,6 +36,29 @@
 			<artifactId>telegrambots-spring-boot-starter</artifactId>
 			<version>${telegrambots-spring-boot-starter.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

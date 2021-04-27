@@ -7,7 +7,7 @@ public class StopCommand implements Command {
 
    private final SendBotMessageService sendBotMessageService;
 
-   public static String stopMessage = "Все подписки деактивированы. До свидания \uD83D\uDE1F!";
+   public static String stopCommandMessage = "Все подписки деактивированы. До свидания \uD83D\uDE1F!";
 
    public StopCommand(SendBotMessageService sendBotMessageService) {
       this.sendBotMessageService = sendBotMessageService;
@@ -15,6 +15,6 @@ public class StopCommand implements Command {
 
    @Override
    public void execute(Update update) {
-      sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), stopMessage);
+      sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), stopCommandMessage);
    }
 }
