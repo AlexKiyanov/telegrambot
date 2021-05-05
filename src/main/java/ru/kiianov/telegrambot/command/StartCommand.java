@@ -2,6 +2,8 @@ package ru.kiianov.telegrambot.command;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.kiianov.telegrambot.command.service.SendBotMessageService;
+import ru.kiianov.telegrambot.repository.entity.TelegramUser;
+import ru.kiianov.telegrambot.service.TelegramUserService;
 
 /**
  * Start {@link Command}.
@@ -9,17 +11,33 @@ import ru.kiianov.telegrambot.command.service.SendBotMessageService;
 public class StartCommand implements Command {
 
    private final SendBotMessageService sendBotMessageService;
+   private final TelegramUserService telegramUserService;
 
    public static String startCommandMessage = "Привет! Я тестовый бот.\n"
            + "Я хочу научиться присылать тебе статьи тех авторов, которые тебе интересны."
            + " Для примера будем работать с сайтом javarush.ru";
 
-   public StartCommand(SendBotMessageService sendBotMessageService) {
+   public StartCommand(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
       this.sendBotMessageService = sendBotMessageService;
+      this.telegramUserService = telegramUserService;
    }
 
    @Override
    public void execute(Update update) {
-      sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), startCommandMessage);
+
+      String chatId = update.getMessage().getChatId().toString();
+
+      telegramUserService.findByChatId(chatId).ifPresentOrElse(user -> {
+         user.setActive(true);
+         telegramUserService.save(user);
+      },
+              () -> {
+         TelegramUser telegramUser = new TelegramUser();
+         telegramUser.setActive(true);
+         telegramUser.setChatId(chatId);
+         telegramUserService.save(telegramUser);
+              });
+
+      sendBotMessageService.sendMessage(chatId, startCommandMessage);
    }
 }
