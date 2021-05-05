@@ -1,4 +1,4 @@
-package ru.kiianov.telegrambot.repository;
+package ru.kiianov.telegrambot;
 
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.junit.jupiter.api.Test;
+import ru.kiianov.telegrambot.repository.TelegramUserRepository;
 import ru.kiianov.telegrambot.repository.entity.TelegramUser;
 
 import java.util.List;
