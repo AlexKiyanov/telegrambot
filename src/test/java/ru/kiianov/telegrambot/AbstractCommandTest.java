@@ -10,6 +10,7 @@ import ru.kiianov.telegrambot.bot.TelegramBot;
 import ru.kiianov.telegrambot.command.Command;
 import ru.kiianov.telegrambot.command.service.SendBotMessageService;
 import ru.kiianov.telegrambot.command.service.SendBotMessageServiceImpl;
+import ru.kiianov.telegrambot.service.TelegramUserService;
 
 /**
  * Abstract class for testing {@link Command}s.
@@ -18,6 +19,7 @@ abstract class AbstractCommandTest {
 
    protected TelegramBot telegramBot = Mockito.mock(TelegramBot.class);
    protected SendBotMessageService sendBotMessageService = new SendBotMessageServiceImpl(telegramBot);
+   protected TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
 
    abstract String getCommandName();
 

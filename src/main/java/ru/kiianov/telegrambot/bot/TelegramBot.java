@@ -1,11 +1,13 @@
 package ru.kiianov.telegrambot.bot;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.kiianov.telegrambot.command.CommandContainer;
 import ru.kiianov.telegrambot.command.service.SendBotMessageServiceImpl;
+import ru.kiianov.telegrambot.service.TelegramUserService;
 
 import static ru.kiianov.telegrambot.command.CommandName.NO;
 
@@ -22,8 +24,9 @@ public class TelegramBot extends TelegramLongPollingBot {
 
    private final CommandContainer commandContainer;
 
-   public TelegramBot() {
-      this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this));
+   @Autowired
+   public TelegramBot(TelegramUserService telegramUserService) {
+      this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
    }
 
    @Override
