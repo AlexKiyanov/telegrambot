@@ -7,6 +7,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.kiianov.telegrambot.command.CommandContainer;
 import ru.kiianov.telegrambot.command.service.SendBotMessageServiceImpl;
+import ru.kiianov.telegrambot.javarushclient.JavaRushGroupClient;
+import ru.kiianov.telegrambot.service.GroupSubService;
 import ru.kiianov.telegrambot.service.TelegramUserService;
 
 import static ru.kiianov.telegrambot.command.CommandName.NO;
@@ -14,42 +16,48 @@ import static ru.kiianov.telegrambot.command.CommandName.NO;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-   public final static String COMMAND_PREFIX = "/";
+    public final static String COMMAND_PREFIX = "/";
 
-   @Value("${bot.username}")
-   private String username;
+    @Value("${bot.username}")
+    private String username;
 
-   @Value("${bot.token}")
-   private String token;
+    @Value("${bot.token}")
+    private String token;
 
-   private final CommandContainer commandContainer;
+    private final CommandContainer commandContainer;
 
-   @Autowired
-   public TelegramBot(TelegramUserService telegramUserService) {
-      this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
-   }
+    @Autowired
+    public TelegramBot(TelegramUserService telegramUserService,
+                       JavaRushGroupClient javaRushGroupClient,
+                       GroupSubService groupSubService) {
+        this.commandContainer = new CommandContainer(
+                new SendBotMessageServiceImpl(this),
+                telegramUserService,
+                javaRushGroupClient,
+                groupSubService);
+    }
 
-   @Override
-   public String getBotUsername() {
-      return username;
-   }
+    @Override
+    public String getBotUsername() {
+        return username;
+    }
 
-   @Override
-   public String getBotToken() {
-      return token;
-   }
+    @Override
+    public String getBotToken() {
+        return token;
+    }
 
-   @Override
-   public void onUpdateReceived(Update update) {
-      if(update.hasMessage() && update.getMessage().hasText()) {
-         String message = update.getMessage().getText().trim();
-         if (message.startsWith(COMMAND_PREFIX)) {
-            String commandIdentifier = message.split(" ")[0].toLowerCase();
+    @Override
+    public void onUpdateReceived(Update update) {
+        if (update.hasMessage() && update.getMessage().hasText()) {
+            String message = update.getMessage().getText().trim();
+            if (message.startsWith(COMMAND_PREFIX)) {
+                String commandIdentifier = message.split(" ")[0].toLowerCase();
 
-            commandContainer.retrieveCommand(commandIdentifier).execute(update);
-         } else {
-            commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
-         }
-      }
-   }
+                commandContainer.retrieveCommand(commandIdentifier).execute(update);
+            } else {
+                commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
+            }
+        }
+    }
 }
