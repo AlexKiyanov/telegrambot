@@ -10,6 +10,8 @@ import ru.kiianov.telegrambot.command.CommandContainer;
 import ru.kiianov.telegrambot.command.CommandName;
 import ru.kiianov.telegrambot.command.UnknownCommand;
 import ru.kiianov.telegrambot.command.service.SendBotMessageService;
+import ru.kiianov.telegrambot.javarushclient.JavaRushGroupClient;
+import ru.kiianov.telegrambot.service.GroupSubService;
 import ru.kiianov.telegrambot.service.TelegramUserService;
 
 import java.util.Arrays;
@@ -17,30 +19,37 @@ import java.util.Arrays;
 @DisplayName("Unit-level testing for CommandContainer")
 public class CommandContainerTest {
 
-   private CommandContainer commandContainer;
+    private CommandContainer commandContainer;
 
-   @BeforeEach
-   public void init() {
-      SendBotMessageService sendBotMessageService = Mockito.mock(SendBotMessageService.class);
-      TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
-      commandContainer = new CommandContainer(sendBotMessageService, telegramUserService);
-   }
+    @BeforeEach
+    public void init() {
+        SendBotMessageService sendBotMessageService = Mockito.mock(SendBotMessageService.class);
+        TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
+        JavaRushGroupClient javaRushGroupClient = Mockito.mock(JavaRushGroupClient.class);
+        GroupSubService groupSubService = Mockito.mock(GroupSubService.class);
 
-   @Test
-   public void shouldGetAllExistsCommands() {
-      Arrays.stream(CommandName.values())
-              .forEach(commandName -> {
-                 Command command = commandContainer.retrieveCommand(commandName.getCommandName());
-                 Assertions.assertNotEquals(UnknownCommand.class, command.getClass());
-              });
-   }
+        commandContainer = new CommandContainer(
+                sendBotMessageService,
+                telegramUserService,
+                javaRushGroupClient,
+                groupSubService);
+    }
 
-   @Test
-   public void shouldReturnUnknownCommand() {
-      String unknownCommand = "/ldkfdf";
+    @Test
+    public void shouldGetAllExistsCommands() {
+        Arrays.stream(CommandName.values())
+                .forEach(commandName -> {
+                    Command command = commandContainer.retrieveCommand(commandName.getCommandName());
+                    Assertions.assertNotEquals(UnknownCommand.class, command.getClass());
+                });
+    }
 
-      Command command = commandContainer.retrieveCommand(unknownCommand);
+    @Test
+    public void shouldReturnUnknownCommand() {
+        String unknownCommand = "/ldkfdf";
 
-      Assertions.assertEquals(UnknownCommand.class, command.getClass());
-   }
+        Command command = commandContainer.retrieveCommand(unknownCommand);
+
+        Assertions.assertEquals(UnknownCommand.class, command.getClass());
+    }
 }

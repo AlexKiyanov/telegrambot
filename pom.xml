@@ -19,6 +19,7 @@
 		<junit.version>4.13.2</junit.version>
 		<mockito.version>3.9.0</mockito.version>
 		<unirest.version>3.11.01</unirest.version>
+		<apache.commons.version>3.11</apache.commons.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -100,6 +101,12 @@
 			<groupId>com.konghq</groupId>
 			<artifactId>unirest-java</artifactId>
 			<version>${unirest.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache.commons.version}</version>
 		</dependency>
 
 	</dependencies>

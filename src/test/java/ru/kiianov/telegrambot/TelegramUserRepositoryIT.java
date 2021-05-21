@@ -8,8 +8,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.junit.jupiter.api.Test;
 import ru.kiianov.telegrambot.repository.TelegramUserRepository;
+import ru.kiianov.telegrambot.repository.entity.GroupSub;
 import ru.kiianov.telegrambot.repository.entity.TelegramUser;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,5 +51,21 @@ public class TelegramUserRepositoryIT {
         //then
         Assertions.assertTrue(saved.isPresent());
         Assertions.assertEquals(telegramUser, saved.get());
+    }
+
+    @Sql(scripts = {"/sql/clearDbs.sql", "/sql/fiveGroupSubsForUser.sql"})
+    @Test
+    public void shouldProperlyGetAllGroupSubsForUser() {
+        //when
+        Optional<TelegramUser> userFromDb = telegramUserRepository.findById("1");
+
+        //then
+        Assertions.assertTrue(userFromDb.isPresent());
+        List<GroupSub> groupSubs = userFromDb.get().getGroupSubs();
+        for (int i = 0; i < groupSubs.size(); i++) {
+            Assertions.assertEquals(String.format("g%s", (i+1)), groupSubs.get(i).getTitle());
+            Assertions.assertEquals(i + 1, groupSubs.get(i).getId());
+            Assertions.assertEquals(i + 1, groupSubs.get(i).getLastArticleId());
+        }
     }
 }
