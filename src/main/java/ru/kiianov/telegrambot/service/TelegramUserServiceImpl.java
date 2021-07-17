@@ -1,9 +1,9 @@
 package ru.kiianov.telegrambot.service;
 
-import ru.kiianov.telegrambot.repository.TelegramUserRepository;
-import ru.kiianov.telegrambot.repository.entity.TelegramUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.kiianov.telegrambot.repository.TelegramUserRepository;
+import ru.kiianov.telegrambot.repository.entity.TelegramUser;
 
 import java.util.List;
 import java.util.Optional;

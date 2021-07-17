@@ -45,9 +45,9 @@ public class JavaRushGroupClientImpl implements JavaRushGroupClient {
     public Integer getGroupCount(GroupsCountRequestArgs countRequestArgs) {
         return Integer.valueOf(
                 Unirest.get(javarushApiGroupPath)
-                .queryString(countRequestArgs.populateQueries())
-                .asString()
-                .getBody()
+                        .queryString(countRequestArgs.populateQueries())
+                        .asString()
+                        .getBody()
         );
     }
 

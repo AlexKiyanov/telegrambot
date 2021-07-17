@@ -11,7 +11,8 @@ import ru.kiianov.telegrambot.service.GroupSubService;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
-import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.commons.lang3.StringUtils.SPACE;
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static ru.kiianov.telegrambot.command.CommandName.ADD_GROUP_SUB;
 import static ru.kiianov.telegrambot.command.CommandUtils.getChatId;
 import static ru.kiianov.telegrambot.command.CommandUtils.getMessage;
@@ -36,7 +37,7 @@ public class AddGroupSubCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        if (getMessage(update).equalsIgnoreCase(ADD_GROUP_SUB.getCommandName())) {
+        if (getMessage(update).equalsIgnoreCase(ADD_GROUP_SUB.getName())) {
             sendGroupIdList(getChatId(update));
             return;
         }

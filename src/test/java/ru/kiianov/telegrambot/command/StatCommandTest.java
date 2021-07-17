@@ -1,16 +1,13 @@
-package ru.kiianov.telegrambot;
-
-import ru.kiianov.telegrambot.command.Command;
-import ru.kiianov.telegrambot.command.StatCommand;
+package ru.kiianov.telegrambot.command;
 
 import static ru.kiianov.telegrambot.command.CommandName.STAT;
 import static ru.kiianov.telegrambot.command.StatCommand.STAT_MESSAGE;
 
-public class StatCommandTest extends AbstractCommandTest{
+public class StatCommandTest extends AbstractCommandTest {
 
     @Override
     String getCommandName() {
-        return STAT.getCommandName();
+        return STAT.getName();
     }
 
     @Override

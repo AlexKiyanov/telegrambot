@@ -16,15 +16,12 @@ import static ru.kiianov.telegrambot.command.CommandName.NO;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    public final static String COMMAND_PREFIX = "/";
-
+    public static final String COMMAND_PREFIX = "/";
+    private final CommandContainer commandContainer;
     @Value("${bot.username}")
     private String username;
-
     @Value("${bot.token}")
     private String token;
-
-    private final CommandContainer commandContainer;
 
     @Autowired
     public TelegramBot(TelegramUserService telegramUserService,
@@ -56,7 +53,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                 commandContainer.retrieveCommand(commandIdentifier).execute(update);
             } else {
-                commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
+                commandContainer.retrieveCommand(NO.getName()).execute(update);
             }
         }
     }

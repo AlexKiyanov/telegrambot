@@ -1,11 +1,12 @@
-package ru.kiianov.telegrambot;
+package ru.kiianov.telegrambot.repository;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import ru.kiianov.telegrambot.repository.GroupSubRepository;
+import org.springframework.test.context.jdbc.Sql;
 import ru.kiianov.telegrambot.repository.entity.GroupSub;
 import ru.kiianov.telegrambot.repository.entity.TelegramUser;
 
@@ -18,12 +19,14 @@ import java.util.Optional;
 @ActiveProfiles("test")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class groupSubRepositoryIT {
+class groupSubRepositoryIT {
 
     @Autowired
     private GroupSubRepository groupSubRepository;
 
-    public void shouldProperlyGetAllUsersForGroupSub() {
+    @Sql(scripts = {"/sql/clearDbs.sql", "/sql/fiveUsersForGroupSub.sql"})
+    @Test
+    void shouldProperlyGetAllUsersForGroupSub() {
         //when
         Optional<GroupSub> groupSubFromDb = groupSubRepository.findById(1);
 

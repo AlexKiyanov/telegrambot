@@ -10,27 +10,29 @@ import static ru.kiianov.telegrambot.command.CommandName.*;
 
 public class CommandContainer {
 
-   private final ImmutableMap<String, Command> commandMap;
-   private final Command UNKNOWN_COMMAND;
+    private final ImmutableMap<String, Command> commandMap;
+    private final Command unknownCommand;
 
-   public CommandContainer(SendBotMessageService sendBotMessageService,
-                           TelegramUserService telegramUserService,
-                           JavaRushGroupClient javaRushGroupClient,
-                           GroupSubService groupSubService) {
+    public CommandContainer(SendBotMessageService sendBotMessageService,
+                            TelegramUserService telegramUserService,
+                            JavaRushGroupClient javaRushGroupClient,
+                            GroupSubService groupSubService) {
 
-      commandMap = ImmutableMap.<String, Command>builder()
-              .put(START.getCommandName(), new StartCommand(sendBotMessageService, telegramUserService))
-              .put(STOP.getCommandName(), new StopCommand(sendBotMessageService, telegramUserService))
-              .put(HELP.getCommandName(), new HelpCommand(sendBotMessageService))
-              .put(NO.getCommandName(), new NoCommand(sendBotMessageService))
-              .put(STAT.getCommandName(), new StatCommand(sendBotMessageService, telegramUserService))
-              .put(ADD_GROUP_SUB.getCommandName(), new AddGroupSubCommand(sendBotMessageService, javaRushGroupClient, groupSubService))
-              .build();
+        commandMap = ImmutableMap.<String, Command>builder()
+                .put(START.getName(), new StartCommand(sendBotMessageService, telegramUserService))
+                .put(STOP.getName(), new StopCommand(sendBotMessageService, telegramUserService))
+                .put(HELP.getName(), new HelpCommand(sendBotMessageService))
+                .put(NO.getName(), new NoCommand(sendBotMessageService))
+                .put(STAT.getName(), new StatCommand(sendBotMessageService, telegramUserService))
+                .put(ADD_GROUP_SUB.getName(),
+                        new AddGroupSubCommand(sendBotMessageService, javaRushGroupClient, groupSubService))
+                .put(LIST_GROUP_SUB.getName(), new ListGroupSubCommand(sendBotMessageService, telegramUserService))
+                .build();
 
-      UNKNOWN_COMMAND = new UnknownCommand(sendBotMessageService);
-   }
+        unknownCommand = new UnknownCommand(sendBotMessageService);
+    }
 
-   public Command retrieveCommand(String commandIdentifier) {
-      return commandMap.getOrDefault(commandIdentifier, UNKNOWN_COMMAND);
-   }
+    public Command retrieveCommand(String commandIdentifier) {
+        return commandMap.getOrDefault(commandIdentifier, unknownCommand);
+    }
 }

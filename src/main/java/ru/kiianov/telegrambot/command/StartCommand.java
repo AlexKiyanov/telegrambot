@@ -10,34 +10,33 @@ import ru.kiianov.telegrambot.service.TelegramUserService;
  */
 public class StartCommand implements Command {
 
-   private final SendBotMessageService sendBotMessageService;
-   private final TelegramUserService telegramUserService;
+    public static String startCommandMessage = "Привет! Я тестовый бот.\n"
+            + "Я хочу научиться присылать тебе статьи тех авторов, которые тебе интересны."
+            + " Для примера будем работать с сайтом javarush.ru";
+    private final SendBotMessageService sendBotMessageService;
+    private final TelegramUserService telegramUserService;
 
-   public static String startCommandMessage = "Привет! Я тестовый бот.\n"
-           + "Я хочу научиться присылать тебе статьи тех авторов, которые тебе интересны."
-           + " Для примера будем работать с сайтом javarush.ru";
+    public StartCommand(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
+        this.sendBotMessageService = sendBotMessageService;
+        this.telegramUserService = telegramUserService;
+    }
 
-   public StartCommand(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
-      this.sendBotMessageService = sendBotMessageService;
-      this.telegramUserService = telegramUserService;
-   }
+    @Override
+    public void execute(Update update) {
 
-   @Override
-   public void execute(Update update) {
+        String chatId = update.getMessage().getChatId().toString();
 
-      String chatId = update.getMessage().getChatId().toString();
+        telegramUserService.findByChatId(chatId).ifPresentOrElse(user -> {
+                    user.setActive(true);
+                    telegramUserService.save(user);
+                },
+                () -> {
+                    TelegramUser telegramUser = new TelegramUser();
+                    telegramUser.setActive(true);
+                    telegramUser.setChatId(chatId);
+                    telegramUserService.save(telegramUser);
+                });
 
-      telegramUserService.findByChatId(chatId).ifPresentOrElse(user -> {
-         user.setActive(true);
-         telegramUserService.save(user);
-      },
-              () -> {
-         TelegramUser telegramUser = new TelegramUser();
-         telegramUser.setActive(true);
-         telegramUser.setChatId(chatId);
-         telegramUserService.save(telegramUser);
-              });
-
-      sendBotMessageService.sendMessage(chatId, startCommandMessage);
-   }
+        sendBotMessageService.sendMessage(chatId, startCommandMessage);
+    }
 }

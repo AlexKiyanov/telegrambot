@@ -8,16 +8,15 @@ import ru.kiianov.telegrambot.command.service.SendBotMessageService;
  */
 public class UnknownCommand implements Command {
 
-   private final SendBotMessageService sendBotMessageService;
+    public static String unknownCommandMessage = "Не понимаю вас \uD83D\uDE1F, напишите /help чтобы узнать что я понимаю.";
+    private final SendBotMessageService sendBotMessageService;
 
-   public static String unknownCommandMessage = "Не понимаю вас \uD83D\uDE1F, напишите /help чтобы узнать что я понимаю.";
+    public UnknownCommand(SendBotMessageService sendBotMessageService) {
+        this.sendBotMessageService = sendBotMessageService;
+    }
 
-   public UnknownCommand(SendBotMessageService sendBotMessageService) {
-      this.sendBotMessageService = sendBotMessageService;
-   }
-
-   @Override
-   public void execute(Update update) {
-      sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), unknownCommandMessage);
-   }
+    @Override
+    public void execute(Update update) {
+        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), unknownCommandMessage);
+    }
 }
