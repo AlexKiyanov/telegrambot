@@ -1,10 +1,8 @@
-package ru.kiianov.telegrambot;
+package ru.kiianov.telegrambot.javarushclient;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.kiianov.telegrambot.javarushclient.JavaRushGroupClient;
-import ru.kiianov.telegrambot.javarushclient.JavaRushGroupClientImpl;
 import ru.kiianov.telegrambot.javarushclient.dto.GroupDiscussionInfo;
 import ru.kiianov.telegrambot.javarushclient.dto.GroupInfo;
 import ru.kiianov.telegrambot.javarushclient.dto.GroupRequestArgs;
@@ -20,7 +18,7 @@ class JavaRushGroupClientIT {
     private final JavaRushGroupClient groupClient = new JavaRushGroupClientImpl("https://javarush.ru/api/1.0/rest");
 
     @Test
-    public void shouldProperlyGetGroupsWithEmptyArgs() {
+    void shouldProperlyGetGroupsWithEmptyArgs() {
         //given
         GroupRequestArgs args = GroupRequestArgs.builder().build();
 
@@ -33,7 +31,7 @@ class JavaRushGroupClientIT {
     }
 
     @Test
-    public void shouldProperlyGetWithOffSetAndLimit() {
+    void shouldProperlyGetWithOffSetAndLimit() {
         //given
         GroupRequestArgs args = GroupRequestArgs.builder()
                 .offset(1)
@@ -49,7 +47,7 @@ class JavaRushGroupClientIT {
     }
 
     @Test
-    public void shouldProperlyGetGroupsDiscWithEmptyArgs() {
+    void shouldProperlyGetGroupsDiscWithEmptyArgs() {
         //given
         GroupRequestArgs args = GroupRequestArgs.builder().build();
 
@@ -62,7 +60,7 @@ class JavaRushGroupClientIT {
     }
 
     @Test
-    public void shouldProperlyGetGroupDiscWithOffSetAndLimit() {
+    void shouldProperlyGetGroupDiscWithOffSetAndLimit() {
         //given
         GroupRequestArgs args = GroupRequestArgs.builder()
                 .offset(1)
@@ -78,7 +76,7 @@ class JavaRushGroupClientIT {
     }
 
     @Test
-    public void shouldProperlyGetGroupCount() {
+    void shouldProperlyGetGroupCount() {
         //given
         GroupsCountRequestArgs args = GroupsCountRequestArgs.builder().build();
 
@@ -90,7 +88,7 @@ class JavaRushGroupClientIT {
     }
 
     @Test
-    public void shouldProperlyGetGroupTECHCount() {
+    void shouldProperlyGetGroupTECHCount() {
         //given
         GroupsCountRequestArgs args = GroupsCountRequestArgs.builder()
                 .type(TECH)
@@ -104,7 +102,7 @@ class JavaRushGroupClientIT {
     }
 
     @Test
-    public void shouldProperlyGetGroupById() {
+    void shouldProperlyGetGroupById() {
         //given
         Integer androidGroupId = 16;
 

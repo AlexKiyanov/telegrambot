@@ -33,7 +33,7 @@ public class GroupSub {
     private List<TelegramUser> users;
 
     public void addUser(TelegramUser telegramUser) {
-        if(isNull(users)) {
+        if (isNull(users)) {
             users = new ArrayList<>();
         }
         users.add(telegramUser);

@@ -8,26 +8,26 @@ import ru.kiianov.telegrambot.service.TelegramUserService;
  * Stop {@link Command}.
  */
 public class StopCommand implements Command {
+    public static final String STOP_COMMAND_MESSAGE = "Все подписки деактивированы. До свидания \uD83D\uDE1F!";
 
-   private final SendBotMessageService sendBotMessageService;
-   private final TelegramUserService telegramUserService;
+    private final SendBotMessageService sendBotMessageService;
+    private final TelegramUserService telegramUserService;
 
-   public static String stopCommandMessage = "Все подписки деактивированы. До свидания \uD83D\uDE1F!";
 
-   public StopCommand(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
-      this.sendBotMessageService = sendBotMessageService;
-      this.telegramUserService = telegramUserService;
-   }
+    public StopCommand(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
+        this.sendBotMessageService = sendBotMessageService;
+        this.telegramUserService = telegramUserService;
+    }
 
-   @Override
-   public void execute(Update update) {
+    @Override
+    public void execute(Update update) {
 
-      String chatId = update.getMessage().getChatId().toString();
+        String chatId = update.getMessage().getChatId().toString();
 
-      sendBotMessageService.sendMessage(chatId, stopCommandMessage);
-      telegramUserService.findByChatId(chatId).ifPresent(it -> {
-         it.setActive(false);
-         telegramUserService.save(it);
-      });
-   }
+        sendBotMessageService.sendMessage(chatId, STOP_COMMAND_MESSAGE);
+        telegramUserService.findByChatId(chatId).ifPresent(it -> {
+            it.setActive(false);
+            telegramUserService.save(it);
+        });
+    }
 }

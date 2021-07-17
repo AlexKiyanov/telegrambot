@@ -12,26 +12,26 @@ import ru.kiianov.telegrambot.bot.TelegramBot;
 @Service
 public class SendBotMessageServiceImpl implements SendBotMessageService {
 
-   private final TelegramBot telegramBot;
+    private final TelegramBot telegramBot;
 
-   @Autowired
-   public SendBotMessageServiceImpl(TelegramBot telegramBot) {
-      this.telegramBot = telegramBot;
-   }
+    @Autowired
+    public SendBotMessageServiceImpl(TelegramBot telegramBot) {
+        this.telegramBot = telegramBot;
+    }
 
-   @Override
-   public void sendMessage(String chatId, String message) {
-      SendMessage sendMessage = new SendMessage();
-      sendMessage.setChatId(chatId);
-      sendMessage.enableHtml(true);
-      sendMessage.setText(message);
+    @Override
+    public void sendMessage(String chatId, String message) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.enableHtml(true);
+        sendMessage.setText(message);
 
-      try {
-         telegramBot.execute(sendMessage);
-      } catch (TelegramApiException e) {
-         //todo add logging to the project.
-         e.printStackTrace();
-      }
-   }
+        try {
+            telegramBot.execute(sendMessage);
+        } catch (TelegramApiException e) {
+            //todo add logging to the project.
+            e.printStackTrace();
+        }
+    }
 
 }

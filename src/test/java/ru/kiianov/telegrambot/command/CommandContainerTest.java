@@ -1,14 +1,10 @@
-package ru.kiianov.telegrambot;
+package ru.kiianov.telegrambot.command;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import ru.kiianov.telegrambot.command.Command;
-import ru.kiianov.telegrambot.command.CommandContainer;
-import ru.kiianov.telegrambot.command.CommandName;
-import ru.kiianov.telegrambot.command.UnknownCommand;
 import ru.kiianov.telegrambot.command.service.SendBotMessageService;
 import ru.kiianov.telegrambot.javarushclient.JavaRushGroupClient;
 import ru.kiianov.telegrambot.service.GroupSubService;
@@ -39,7 +35,7 @@ public class CommandContainerTest {
     public void shouldGetAllExistsCommands() {
         Arrays.stream(CommandName.values())
                 .forEach(commandName -> {
-                    Command command = commandContainer.retrieveCommand(commandName.getCommandName());
+                    Command command = commandContainer.retrieveCommand(commandName.getName());
                     Assertions.assertNotEquals(UnknownCommand.class, command.getClass());
                 });
     }

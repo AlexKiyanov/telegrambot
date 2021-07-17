@@ -17,7 +17,7 @@ public class GroupRequestArgs {
 
     private final String query;
     private final GroupInfoType type;
-    private  final GroupFilter filter;
+    private final GroupFilter filter;
 
     /**
      * specified where to start getting groups
@@ -29,21 +29,21 @@ public class GroupRequestArgs {
      */
     private final Integer limit;
 
-    public Map<String,Object> populateQueries() {
-        Map<String,Object> queries = new HashMap<>();
-        if(nonNull(query)) {
+    public Map<String, Object> populateQueries() {
+        Map<String, Object> queries = new HashMap<>();
+        if (nonNull(query)) {
             queries.put("query", query);
         }
-        if(nonNull(type)) {
+        if (nonNull(type)) {
             queries.put("type", type);
         }
-        if(nonNull(filter)) {
+        if (nonNull(filter)) {
             queries.put("filter", filter);
         }
-        if(nonNull(offset)) {
+        if (nonNull(offset)) {
             queries.put("offset", offset);
         }
-        if(nonNull(limit)) {
+        if (nonNull(limit)) {
             queries.put("limit", limit);
         }
         return queries;

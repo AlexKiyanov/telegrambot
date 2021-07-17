@@ -8,15 +8,15 @@ import ru.kiianov.telegrambot.service.TelegramUserService;
 /**
  * Statistics {@link Command}.
  */
-public class StatCommand implements Command{
+public class StatCommand implements Command {
+    public static final String STAT_MESSAGE = "Telegram Bot использует %s человек.";
 
     private final SendBotMessageService sendBotMessageService;
     private final TelegramUserService telegramUserService;
 
-    public final static String STAT_MESSAGE = "Telegram Bot использует %s человек.";
 
     @Autowired
-    public StatCommand(SendBotMessageService sendBotMessageService,TelegramUserService telegramUserService) {
+    public StatCommand(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
         this.sendBotMessageService = sendBotMessageService;
         this.telegramUserService = telegramUserService;
     }
@@ -24,6 +24,7 @@ public class StatCommand implements Command{
     @Override
     public void execute(Update update) {
         int activeUserCount = telegramUserService.findAllActiveUsers().size();
-        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), String.format(STAT_MESSAGE, activeUserCount));
+        sendBotMessageService
+                .sendMessage(update.getMessage().getChatId().toString(), String.format(STAT_MESSAGE, activeUserCount));
     }
 }

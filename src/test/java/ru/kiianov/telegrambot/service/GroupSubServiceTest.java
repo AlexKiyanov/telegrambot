@@ -1,4 +1,4 @@
-package ru.kiianov.telegrambot;
+package ru.kiianov.telegrambot.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -8,23 +8,19 @@ import ru.kiianov.telegrambot.javarushclient.dto.GroupDiscussionInfo;
 import ru.kiianov.telegrambot.repository.GroupSubRepository;
 import ru.kiianov.telegrambot.repository.entity.GroupSub;
 import ru.kiianov.telegrambot.repository.entity.TelegramUser;
-import ru.kiianov.telegrambot.service.GroupSubService;
-import ru.kiianov.telegrambot.service.GroupSubServiceImpl;
-import ru.kiianov.telegrambot.service.TelegramUserService;
 
 import java.util.Optional;
 
 @DisplayName("Unit-level testing for GroupSubService")
-public class GroupSubServiceTest {
+class GroupSubServiceTest {
 
+    private static final String CHAT_ID = "1";
     private GroupSubService groupSubService;
     private GroupSubRepository groupSubRepository;
     private TelegramUser newUser;
 
-    private static final String CHAT_ID = "1";
-
     @BeforeEach
-    public void init() {
+    void init() {
         TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
         groupSubRepository = Mockito.mock(GroupSubRepository.class);
         groupSubService = new GroupSubServiceImpl(groupSubRepository, telegramUserService);
@@ -37,7 +33,7 @@ public class GroupSubServiceTest {
     }
 
     @Test
-    public void shouldProperlySaveGroup() {
+    void shouldProperlySaveGroup() {
         //given
         GroupDiscussionInfo groupDiscussionInfo = new GroupDiscussionInfo();
         groupDiscussionInfo.setId(1);
@@ -56,7 +52,7 @@ public class GroupSubServiceTest {
     }
 
     @Test
-    public void shouldProperlyAddUserToExistingGroup() {
+    void shouldProperlyAddUserToExistingGroup() {
         //given
         TelegramUser oldTelegramUser = new TelegramUser();
         oldTelegramUser.setChatId("2");

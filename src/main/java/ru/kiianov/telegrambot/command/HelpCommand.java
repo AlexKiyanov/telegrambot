@@ -9,35 +9,37 @@ import static ru.kiianov.telegrambot.command.CommandName.*;
  * Help {@link Command}.
  */
 public class HelpCommand implements Command {
+    public static final String HELP_COMMAND_MESSAGE = String.format(
+            "✨<b>Доcтупные команды</b>✨\n\n"
 
-   private final SendBotMessageService sendBotMessageService;
+                    + "<b>Начать\\закончить работу с ботом</b>\n"
+                    + "%s - начать работу со мной\n"
+                    + "%s - приостановить работу со мной\n\n"
 
-   public static String helpCommandMessage = String.format(
-           "✨<b>Доcтупные команды</b>✨\n\n"
+                    + "<b>Работа с подписками на группы:</b>\n"
+                    + "%s - подписаться на группу статей\n"
+                    + "%s - получить список групп, на которые подписан\n\n"
 
-                   + "<b>Начать\\закончить работу с ботом</b>\n"
-                   + "%s - начать работу со мной\n"
-                   + "%s - приостановить работу со мной\n\n"
+                    + "%s - получить статистику по боту\n"
+                    + "%s - получить помощь в работе со мной\n",
+            START.getName(),
+            STOP.getName(),
 
-                   + "<b>Работа с подписками на группы:</b>\n"
-                   + "%s - подписаться на группу статей\n"
+            ADD_GROUP_SUB.getName(),
+            LIST_GROUP_SUB.getName(),
 
-                   + "%s - получить статистику по боту\n"
-                   + "%s - получить помощь в работе со мной\n",
-           START.getCommandName(),
-           STOP.getCommandName(),
+            STAT.getName(),
+            HELP.getName());
 
-           ADD_GROUP_SUB.getCommandName(),
+    private final SendBotMessageService sendBotMessageService;
 
-           STAT.getCommandName(),
-           HELP.getCommandName());
 
-   public HelpCommand(SendBotMessageService sendBotMessageService) {
-      this.sendBotMessageService = sendBotMessageService;
-   }
+    public HelpCommand(SendBotMessageService sendBotMessageService) {
+        this.sendBotMessageService = sendBotMessageService;
+    }
 
-   @Override
-   public void execute(Update update) {
-      sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), helpCommandMessage);
-   }
+    @Override
+    public void execute(Update update) {
+        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), HELP_COMMAND_MESSAGE);
+    }
 }

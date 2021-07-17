@@ -13,7 +13,7 @@ public interface TelegramUserService {
     /**
      * save provided {@link TelegramUser} entity.
      *
-     * @param  telegramUser provided telegram user.
+     * @param telegramUser provided telegram user.
      */
     void save(TelegramUser telegramUser);
 
