@@ -10,7 +10,7 @@ import ru.kiianov.telegrambot.command.service.SendBotMessageService;
 public class NoCommand implements Command {
 
     @Value("${bot.command.noCommandMessage}")
-    public static String noCommandMessage = "Я поддерживаю команды, начинающиеся со слеша(/).\n"
+    public static final String noCommandMessage = "Я поддерживаю команды, начинающиеся со слеша(/).\n"
             + "Чтобы посмотреть список команд введи /help";
     private final SendBotMessageService sendBotMessageService;
 

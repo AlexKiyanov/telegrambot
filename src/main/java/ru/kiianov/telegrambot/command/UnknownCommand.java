@@ -8,7 +8,8 @@ import ru.kiianov.telegrambot.command.service.SendBotMessageService;
  */
 public class UnknownCommand implements Command {
 
-    public static String unknownCommandMessage = "Не понимаю вас \uD83D\uDE1F, напишите /help чтобы узнать что я понимаю.";
+    public static final String unknownCommandMessage =
+            "Не понимаю вас \uD83D\uDE1F, напишите /help чтобы узнать что я понимаю.";
     private final SendBotMessageService sendBotMessageService;
 
     public UnknownCommand(SendBotMessageService sendBotMessageService) {

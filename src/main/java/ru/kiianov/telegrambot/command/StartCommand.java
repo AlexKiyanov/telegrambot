@@ -10,7 +10,7 @@ import ru.kiianov.telegrambot.service.TelegramUserService;
  */
 public class StartCommand implements Command {
 
-    public static String startCommandMessage = "Привет! Я тестовый бот.\n"
+    public static final String startCommandMessage = "Привет! Я тестовый бот.\n"
             + "Я хочу научиться присылать тебе статьи тех авторов, которые тебе интересны."
             + " Для примера будем работать с сайтом javarush.ru";
     private final SendBotMessageService sendBotMessageService;
@@ -26,7 +26,7 @@ public class StartCommand implements Command {
 
         String chatId = update.getMessage().getChatId().toString();
 
-        telegramUserService.findByChatId(chatId).ifPresentOrElse(user -> {
+        telegramUserService.findByChatId(chatId).ifPresentOrElse((TelegramUser user) -> {
                     user.setActive(true);
                     telegramUserService.save(user);
                 },
